@@ -118,7 +118,6 @@ public class MemberController {
     public AuthCode emailConfirm(@RequestBody @Valid EmailConfirmDTO emailConfirmDTO) throws MessagingException, UnsupportedEncodingException {
 
         return emailService.sendEmail(emailConfirmDTO.getEmail(),"confirm");
-
     }
 
     /**
@@ -143,10 +142,10 @@ public class MemberController {
      */
 
     @PostMapping("/findByUsername/email")
-    public AuthCode findByUsernameEmail(@RequestBody FindByUsernameRequest request) throws MessagingException, UnsupportedEncodingException {
+    public AuthCode findByUsernameEmail(@RequestBody @Valid FindByUsernameRequest request) throws MessagingException, UnsupportedEncodingException {
         if (memberService.existByRealNameAndEmail(request.getRealName(),request.getEmail()))
         {
-            return emailService.sendEmail(request.getEmail(),"find");
+            return emailService.sendEmail(request.getEmail(),"find_ID");
         }
         else
         {
@@ -162,7 +161,7 @@ public class MemberController {
 
 
     @GetMapping("/findByUsername/get")
-    public FindByUsernameResponse findByUsername(@ModelAttribute FindByUsernameRequest request){
+    public FindByUsernameResponse findByUsername(@ModelAttribute @Valid FindByUsernameRequest request){
         return FindByUsernameResponse.builder()
                 .username(
                         memberService.findByRealName(request.getRealName()).getUsername()
@@ -170,4 +169,29 @@ public class MemberController {
                 .exitsMember(true)
                 .build();
     }
+
+    /**
+     * ID,이메일을 통한 PW 찾기
+     */
+
+    @PostMapping("/findByPassword/email")
+    public AuthCode findByPassword(@RequestBody @Valid FindByPasswordRequest request) throws MessagingException, UnsupportedEncodingException {
+        if(memberService.existsByEmailAndUsername(request.getEmail(), request.getUsername())){
+            return emailService.sendEmail(request.getEmail(),"find_PW");
+        }
+        else {
+            return AuthCode.builder().build();
+        }
+    }
+
+
+
+    @GetMapping("/findByPassword/get")
+    public FindByPasswordResponse findByPasswordGet(@RequestBody @Valid FindByPasswordRequest request){
+        String password = memberService.findByUsername(request.getUsername()).getPassword();
+
+        return FindByPasswordResponse.builder().password(password).build();
+
+    }
+
 }

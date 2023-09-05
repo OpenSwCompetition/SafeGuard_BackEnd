@@ -50,6 +50,7 @@ public class SecurityConfig {
                             authorizationManagerRequestMatcherRegistry.requestMatchers("/api/weather").permitAll();
                             authorizationManagerRequestMatcherRegistry.requestMatchers("/api/upload").permitAll();
                             authorizationManagerRequestMatcherRegistry.requestMatchers("/api/findByUsername/**").permitAll();
+                            authorizationManagerRequestMatcherRegistry.requestMatchers("/api/findByPassword/**").permitAll();
                             authorizationManagerRequestMatcherRegistry.anyRequest().authenticated();
                         })
                 .exceptionHandling(handling ->{

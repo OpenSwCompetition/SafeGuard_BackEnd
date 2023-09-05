@@ -98,4 +98,9 @@ public class MemberServiceImpl implements MemberService{
         );
         return findMember;
     }
+
+    @Override
+    public boolean existsByEmailAndUsername(String email, String username) {
+        return memberRepository.existsByEmailAndUsername(email,username);
+    }
 }
