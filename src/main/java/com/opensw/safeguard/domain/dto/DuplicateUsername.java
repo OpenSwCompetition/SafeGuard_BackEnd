@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 public class DuplicateUsername {
 
-    @NotBlank(message = "아이디는 필수 입력 값 입니다")
+    @NotBlank(message = "아이디는 필수 입력 du값 입니다")
     private String username;
     private boolean duplicate;
 

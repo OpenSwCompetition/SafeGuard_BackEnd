@@ -18,4 +18,6 @@ public interface MemberService {
     boolean existByRealNameAndEmail(String realName,String email);
 
     Member findByRealName(String realName);
+
+    boolean existsByEmailAndUsername(String email , String username);
 }

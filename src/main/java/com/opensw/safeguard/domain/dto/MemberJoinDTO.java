@@ -26,7 +26,6 @@ public class MemberJoinDTO {
     @NotBlank(message = "번호는 필수 입력 값 입니다")
     private String phoneNumber;
 
-
     private List<String> associatedPhoneNumber;
 
 
